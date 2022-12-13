@@ -1,0 +1,77 @@
+<div class="card-body">
+    <h5>HC por sector territorial</h5>
+    <table class="table table-bordered dataTable" width="100%" cellspacing="0" role="grid"
+        aria-describedby="dataTable_info" style="margin: 0 auto;">
+        <thead>
+            <tr role="row">
+                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-sort="ascending">
+                    Sector
+                </th>
+                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-sort="ascending" style="width: 100px; text-align: center;">
+                    HC</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each HCporST}}
+            <tr class="odd">
+                <td class="sorting_1">{{nombre}}</td>
+                <td>{{valor}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<div class="card-body">
+    <h5>HC por tipo de organizacion</h5>
+    <table class="table table-bordered dataTable" width="100%" cellspacing="0" role="grid"
+        aria-describedby="dataTable_info" style="margin: 0 auto;;">
+        <thead>
+            <tr role="row">
+                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-sort="ascending">
+                    Tipo
+                </th>
+                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-sort="ascending" style="width: 100px;  text-align: center">
+                    HC</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each HCporTipoOrg}}
+            <tr class="odd">
+                <td class="sorting_1">{{nombre}}</td>
+                <td>{{valor}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<div class="card-body">
+    <h5>Composición del HC por provincias</h5>
+    <table class="table table-bordered dataTable" width="100%" cellspacing="0" role="grid"
+        aria-describedby="dataTable_info" style="margin: 0 auto;;">
+        <thead>
+            <tr role="row">
+                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-sort="ascending">
+                    Provincia
+                </th>
+                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-sort="ascending" style="width: 100px;  text-align: center">
+                    HC</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each HCporProvincias}}
+            <tr class="odd">
+                <td class="sorting_1">{{nombre}}</td>
+                <td>{{valor}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

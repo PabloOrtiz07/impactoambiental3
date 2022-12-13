@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Huella de Carbono</title>
+
+
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet"
+        href="../static/vendor/fontawesome-free/css/all.min.css">
+
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet" href="../static/css/sb-admin-2.min.css">
+
+
+</head>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5" style="height: 370px;">
+                                    <div class="selector-inicio">
+                                        <form id="botones" class="user" onsubmit="return false">
+                                            <div class="text-center">
+                                                <h1 class="h4 text-gray-900 mb-4">Huella de Carbono</h1>
+                                            </div>
+                                            <input type="submit" class="btn btn-primary btn-user btn-block"
+                                                onclick="mostrarMiembro()" value="Ingreso miembros">
+                                            <input type="submit" class="btn btn-primary btn-user btn-block"
+                                                onclick="mostrarOrganizacion()" value="Ingreso organizaciones">
+                                            <input type="submit" class="btn btn-primary btn-user btn-block"
+                                                onclick="mostrarAgente()" value="Ingreso agentes sectoriales">
+                                        </form>
+                                    </div>
+                                    <!-- INICIO FORMULARIO MIEMBRO-->
+                                    <div id="miembro" style="display: none;">
+                                        <div class="text-center">
+                                            <h1 class="h4 text-gray-900 mb-4">Ingreso miembros</h1>
+                                        </div>
+                                        <form class="user" th:action="@{/login}" method="post" name="form_miembro">
+                                            <div class="form-group">
+                                                <input type="email" class="form-control form-control-user"
+                                                    id="mail-miembro" name="username" aria-describedby="emailHelp"
+                                                    placeholder="Ingrese su usuario">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control form-control-user"
+                                                    id="contraseña-miembro" name="password"
+                                                    placeholder="Ingrese su contraseña">
+                                            </div>
+                                            <button href="#" class="btn btn-primary btn-user btn-block">
+                                                Iniciar sesión
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <!--FIN FORMULARIO MIEMBRO-->
+                                    <!-- INICIO FORMULARIO ORG-->
+                                    <div id="organizacion" style="display: none;">
+                                        <div class="text-center">
+                                            <h1 class="h4 text-gray-900 mb-4">Ingreso organizaciones</h1>
+                                        </div>
+
+                                        <form class="user" th:action="@{/loginOrganizacion}" method="post" name="form_org">
+
+                                            <div class="form-group">
+                                                <input type="email" class="form-control form-control-user"
+                                                    id="mail-organizacion" aria-describedby="emailHelp"
+                                                    placeholder="Ingrese su usuario"  name="username" >
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control form-control-user"
+                                                    id="constraseña-organizacion"  name="password" placeholder="Ingrese su contraseña">
+                                            </div>
+                                            <button  href="#"
+                                                class="btn btn-primary btn-user btn-block">
+                                                Iniciar sesión
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <!--FIN FORMULARIO ORG-->
+                                    <!-- INICIO FORMULARIO AGENTE-->
+                                    <div id="agente-sectorial" style="display: none;">
+                                        <div class="text-center">
+                                            <h1 class="h4 text-gray-900 mb-4">Ingreso agentes sectoriales</h1>
+                                        </div>
+                                        <form class="user"  th:action="@{/loginAgente}" method="post" name="form_agente">
+                                            <div class="form-group">
+                                                <input type="email" class="form-control form-control-user"
+                                                    id="mail-agente-sectorial"   aria-describedby="emailHelp"
+                                                    placeholder="Ingrese su usuario" name="username">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control form-control-user"
+                                                    id="contraseña-agente-sectorial"  name="password"
+                                                    placeholder="Ingrese su contraseña">
+                                            </div>
+                                            <button href="#"
+                                                class="btn btn-primary btn-user btn-block">
+                                                Iniciar sesión
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <!--FIN FORMULARIO AGENTE-->
+                                    <br>
+                                    <div id="atras" style=" text-align:center; display:none">
+                                        <a href="#" class="btn btn-primary btn-user btn-circle"
+                                            onclick="mostrarSelector()">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div th:if="${param.error}" class="alert alert-danger" role="alert"
+            style="width: 350px; margin: 20px auto; text-align: center">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            Usuario o contraseña incorrecta
+        </div>
+        <div th:if="${param.logout}" class="alert alert-success" role="alert"
+            style="width: 350px; margin: 20px auto; text-align: center;">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            Sesión cerrada
+        </div>
+
+    </div>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/js/sb-admin-2.min.js}" src="../static/js/sb-admin-2.min.js"></script>
+    <script th:src="@{/js/script.js}" src="../static/js/script.js"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script th:src="@{/js/bootstrap.js}" src="../static/js/bootstrap.js"></script>
+</body>
+
+</html>
