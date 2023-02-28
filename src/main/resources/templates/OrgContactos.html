@@ -121,7 +121,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Tesla</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Salir</span>
                                 
                             </a>
                             <!-- Dropdown - User Information -->
@@ -139,11 +139,44 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <div style="text-align: center;">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
                             Agregar
                         </button>
                     </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="">
+                                        <label for="">Seleccion de miembro: </label>
+                                        <select id="" name="dataTable_length" aria-controls="dataTable"
+                                                class="custom-select custom-select-sm form-control form-control-sm form-control-user">
+                                            <option selected disabled ></option>
+                                            <option v-for="miembro in miembros" @click="asignarID(miembro.id)" >{{miembro.nombre}}</option>
+                                        </select>
+                                        <br><br>
+                                        <label for="m-area">Tipo de Contacto</label>
+                                        <select v-model="tipoSelect" id="m-area" name="dataTable_length" aria-controls="dataTable"
+                                                class="custom-select custom-select-sm form-control form-control-sm form-control-user">
+                                            <option>Whatsapp</option>
+                                            <option>Mail</option>
+                                        </select>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button @click="agregarContacto()" type="button" class="btn btn-primary">Agregar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
                     <br>
                     <div class="card o-hidden border-0 shadow-lg col-lg-10" style="margin: 0 auto">
                         <div id=appVue class="card-body">
@@ -179,10 +212,10 @@
                                         <td class="sorting_1">{{contacto.apellido}}</td>
                                         <td class="sorting_1">{{contacto.tipoDoc}}</td>
                                         <td class="sorting_1">{{contacto.numDoc}}</td>
-                                        <td class="sorting_1">{{contacto.areas}}</td>
+                                        <td class="sorting_1">{{contacto.areas[0].nombre}}</td>
                                         <td class="sorting_1">{{contacto.telefono}}</td>
                                         <td>
-                                            <a @click="eliminarContactoWp()" href="#" class="btn btn-danger btn-circle">
+                                            <a @click="borrarContactoWP(contacto.id)" href="#" class="btn btn-danger btn-circle">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </td>
@@ -226,10 +259,10 @@
                                         <td class="sorting_1">{{contacto.apellido}}</td>
                                         <td class="sorting_1">{{contacto.tipoDoc}}</td>
                                         <td class="sorting_1">{{contacto.numDoc}}</td>
-                                        <td class="sorting_1">{{contacto.areas}}</td>
+                                        <td class="sorting_1">{{contacto.areas[0].nombre}}</td>
                                         <td class="sorting_1">{{contacto.mail}}</td>
                                         <td>
-                                            <a @click="eliminarContactoMail()" href="#" class="btn btn-danger btn-circle">
+                                            <a @click="borrarContactoMail(contacto.id)" href="#" class="btn btn-danger btn-circle">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </td>
@@ -281,36 +314,48 @@
         var app = new Vue({
             el: "#wrapper",
             data: {
+                miembros: null,
+                selectMiembro: null,
+                tipoSelect: null,
                 contactosWp: [],
                 contactosMail: []
             },
             methods:{
-                borrarContactoWP: function() {
-                    /*fetch('http://localhost:8080/conctacto/eliminar/' + IDCONTACTO, {
-                        method: 'GET',
-                    });*/
-                    this.contactosWp.shift();
+                asignarID: function(miembroId) {
+                    this.selectMiembro = miembroId;
+                },
+                agregarContacto: function() {
+                    if(this.tipoSelect == "Mail"){ fetch('http://localhost:8080/organizaciones/'+ localStorage.getItem('id') +'/agregarContactoMail/'+this.selectMiembro);
+                    }
+                    else { fetch('http://localhost:8080/organizaciones/'+ localStorage.getItem('id') +'/agregarContactoWpp/'+this.selectMiembro);
+                    }
+                    alert("solicitud enviada");
+                },
+                borrarContactoWP: function(miembroID) {
+                    fetch('http://localhost:8080/organizaciones/'+ localStorage.getItem('id') +'/eliminarContactoWpp/'+miembroID)
                     alert("Contacto Eliminado.");
                 },
-                borrarContactoMail: function() {
-                    /*fetch('http://localhost:8080/conctacto/eliminar/' + IDCONTACTO, {
-                        method: 'GET',
-                    });*/
-                    this.contactosMail.shift();
+                borrarContactoMail: function(miembroID) {
+                    fetch('http://localhost:8080/organizaciones/'+ localStorage.getItem('id') +'/eliminarContactoMail/'+miembroID)
                     alert("Contacto Eliminado.");
                 }
             },
             created() {
-                fetch('http://localhost:8080/organizaciones/1/contactosWp')
+                fetch('http://localhost:8080/organizaciones/'+ localStorage.getItem('id') +'/contactosWp')
                     .then(response => response.json())
                     .then(data => {
                         this.contactosWp = data
                     });
-                fetch('http://localhost:8080/organizaciones/1/contactosMail')
+                fetch('http://localhost:8080/organizaciones/'+ localStorage.getItem('id') +'/contactosMail')
                     .then(response => response.json())
                     .then(data => {
                         this.contactosMail = data
-                    })
+                    });
+                fetch('http://localhost:8080/organizaciones/'+ localStorage.getItem('id') +'/miembros')
+                    .then(response => response.json())
+                    .then(data => {
+                        this.miembros = data
+                    });
             }
         })
     </script>

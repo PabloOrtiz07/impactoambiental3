@@ -100,7 +100,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Elon Musk</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Salir</span>
                                 
                             </a>
                             <!-- Dropdown - User Information -->
@@ -177,7 +177,7 @@
                                 <td class="sorting_1">{{areai.nombreOrga}}</td>
                                 <td>{{areai.area.nombre}}</td>
                                 <td>
-                                    <a @click="borrarArea(areai.id)" class="btn btn-danger btn-circle">
+                                    <a @click="borrarArea(areai.area.id)" class="btn btn-danger btn-circle">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
@@ -248,13 +248,13 @@
                         })
                 },
                 agregarArea: function() {
-                    let response = fetch('http://localhost:8080/miembro/solicitarSerParte/'+this.selectOrganizacion+'/'+this.selectArea+'/1' ,{
+                    let response = fetch('http://localhost:8080/miembro/solicitarSerParte/'+this.selectOrganizacion+'/'+this.selectArea+'/'+localStorage.getItem("id") ,{
                         method: 'POST'
                     });
                     alert("Solicitud Enviada.");
                 },
                 borrarArea: function(areaId) {
-                    fetch('http://localhost:8080/miembro/eliminarArea/1/'+areaId, {
+                    fetch('http://localhost:8080/miembro/eliminarArea/'+localStorage.getItem('id')+'/'+areaId, {
                         method: 'GET',
                     });
                     this.areasyorg.shift();
@@ -262,7 +262,7 @@
                 }
             },
             created () {
-                fetch('http://localhost:8080/miembro/1')
+                fetch('http://localhost:8080/miembro/'+localStorage.getItem('id'))
                     .then(response => response.json())
                     .then(data => {
                         this.areas = data.areas;

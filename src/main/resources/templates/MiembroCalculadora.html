@@ -98,7 +98,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Elon Musk</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Salir</span>
                                 
                             </a>
                             <!-- Dropdown - User Information -->
@@ -201,14 +201,6 @@
             }
             },
         methods: {
-            cargarAreas: function() {
-                fetch('http://localhost:8080/areas/byOrg/1')
-                    .then(response => response.json())
-                    .then(data => {
-                        this.areas = data;
-                    })
-            },
-
             calcularHuella: function() {
                 let fechainit = this.fechaIni;
                 let fechafin = this.fechaFin;
@@ -218,20 +210,20 @@
                 let diaFin = fechafin.substring(8,10);
                 let mesFin= fechafin.substring(5,7);
                 let anioFin= fechafin.substring(0,3);
-                fetch('http://localhost:8080/miembro/calcularHuella/1/'+diaInit+'/'+mesInit+'/'+anioInit+'/'+diaFin+'/'+mesFin+'/'+anioFin+'/1')
+
+                fetch('http://localhost:8080/miembro/calcularHuella/'+localStorage.getItem('id')+'/'+diaInit+'/'+mesInit+'/'+anioInit+'/'+diaFin+'/'+mesFin+'/'+anioFin+'/1')
                     .then(response => response.json())
                     .then(data => {
                         this.huella = {
-                            huellaTot: data[0],
-                            impacto: data[1]
+                            huellaTot: data[0].toFixed(6),
+                            impacto: data[1].toFixed(6)
                         };
                     });
-                this.huella.huellaTot = 4560.43;
-                this.huella.impacto = 0.43;
+
             }
         },
         created () {
-            fetch('http://localhost:8080/miembro/1')
+            fetch('http://localhost:8080/miembro/'+localStorage.getItem('id'))
                 .then(response => response.json())
                 .then(data => {
                     this.areas = data.areas;

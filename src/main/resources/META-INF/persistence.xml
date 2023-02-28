@@ -8,21 +8,21 @@
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-         <class>utn.frba.huelladecarbono.model.ModeloDeNegocio.Organizacion</class>
-        <class>utn.frba.huelladecarbono.model.ModeloDeNegocio.AgenteSectorial</class>
-        <class>utn.frba.huelladecarbono.model.ModeloDeNegocio.Area</class>
-        <class>utn.frba.huelladecarbono.model.ModeloDeNegocio.DatoDeMedicion</class>
-        <class>utn.frba.huelladecarbono.model.ModeloDeNegocio.Miembro</class>
-        <class>utn.frba.huelladecarbono.model.ModeloDeNegocio.SectorTerritorial</class>
-        <class>utn.frba.huelladecarbono.model.ModeloDeNegocio.Ubicacion</class>
-        <class>utn.frba.huelladecarbono.model.Movilidad.Recorrido</class>
-        <class>utn.frba.huelladecarbono.model.Movilidad.Trayecto</class>
-        <class>utn.frba.huelladecarbono.model.MedioDeTransporte.Medio</class>
-        <class>utn.frba.huelladecarbono.model.MedioDeTransporte.MedioMotorizado</class>
-        <class>utn.frba.huelladecarbono.model.MedioDeTransporte.MedioNoMotorizado</class>
-        <class>utn.frba.huelladecarbono.model.MedioDeTransporte.Parada</class>
-        <class>utn.frba.huelladecarbono.model.MedioDeTransporte.TransportePublico</class>
-        <class>utn.frba.huelladecarbono.model.CalculoDeDistancias.Distancia</class>
+         <class>heroku.huelladecarbono.model.ModeloDeNegocio.Organizacion</class>
+        <class>heroku.huelladecarbono.model.ModeloDeNegocio.AgenteSectorial</class>
+        <class>heroku.huelladecarbono.model.ModeloDeNegocio.Area</class>
+        <class>heroku.huelladecarbono.model.ModeloDeNegocio.DatoDeMedicion</class>
+        <class>heroku.huelladecarbono.model.ModeloDeNegocio.Miembro</class>
+        <class>heroku.huelladecarbono.model.ModeloDeNegocio.SectorTerritorial</class>
+        <class>heroku.huelladecarbono.model.ModeloDeNegocio.Ubicacion</class>
+        <class>heroku.huelladecarbono.model.Movilidad.Recorrido</class>
+        <class>heroku.huelladecarbono.model.Movilidad.Trayecto</class>
+        <class>heroku.huelladecarbono.model.MedioDeTransporte.Medio</class>
+        <class>heroku.huelladecarbono.model.MedioDeTransporte.MedioMotorizado</class>
+        <class>heroku.huelladecarbono.model.MedioDeTransporte.MedioNoMotorizado</class>
+        <class>heroku.huelladecarbono.model.MedioDeTransporte.Parada</class>
+        <class>heroku.huelladecarbono.model.MedioDeTransporte.TransportePublico</class>
+        <class>heroku.huelladecarbono.model.CalculoDeDistancias.Distancia</class>
 
 
 

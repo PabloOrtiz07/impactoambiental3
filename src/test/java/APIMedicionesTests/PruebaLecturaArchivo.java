@@ -1,7 +1,7 @@
 package APIMedicionesTests;
 
-import utn.frba.huelladecarbono.service.CargaDeMedicionesService.*;
-import utn.frba.huelladecarbono.model.ModeloDeNegocio.*;
+import heroku.huelladecarbono.model.ModeloDeNegocio.DatoDeMedicion;
+import heroku.huelladecarbono.service.CargaDeMedicionesService.CargaDeMediciones;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.List;
@@ -50,6 +50,15 @@ public class PruebaLecturaArchivo {
         cargaMediciones.useExistingWorkbook(filePath);
         List<DatoDeMedicion> listaDatoDeMedicion = cargaMediciones.lecturaArchivo(0);
         Assert.assertEquals(1450.0,listaDatoDeMedicion.get(2).getValor());
+    }
+
+    @Test
+    public void testCargarDatosAListaPrueba() {
+        String filePath = "..\\DDS-2022-K3002-HuellaCarbonoG3\\mediciones2.xlsx";
+        CargaDeMediciones cargaMediciones = new CargaDeMediciones();
+        cargaMediciones.useExistingWorkbook(filePath);
+        List<DatoDeMedicion> listaDatoDeMedicion = cargaMediciones.lecturaArchivo(0);
+        Assert.assertEquals("Mensual",listaDatoDeMedicion.get(2).getPeriodicidad());
     }
 }
 

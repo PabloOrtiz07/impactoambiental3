@@ -121,7 +121,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Tesla</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Salir</span>
                                 
                             </a>
                             <!-- Dropdown - User Information -->
@@ -164,20 +164,20 @@
                                     </thead>
                                     <tbody>
                                     <tr v-for="miembro in miembrosPendientes" class="odd">
-                                        <td class="sorting_1">{{miembro.nombre}}</td>
-                                        <td class="sorting_1">{{miembro.apellido}}</td>
-                                        <td class="sorting_1">{{miembro.tipoDoc}}</td>
-                                        <td class="sorting_1">{{miembro.numDoc}}</td>
-                                        <td class="sorting_1">{{miembro.areas.nombre}}</td>
+                                        <td class="sorting_1">{{miembro.miembro.nombre}}</td>
+                                        <td class="sorting_1">{{miembro.miembro.apellido}}</td>
+                                        <td class="sorting_1">{{miembro.miembro.tipoDoc}}</td>
+                                        <td class="sorting_1">{{miembro.miembro.numDoc}}</td>
+                                        <td class="sorting_1">{{miembro.area.nombre}}</td>
                                         <td>
-                                            <a href="#" class="btn btn-success btn-circle">
+                                            <a @click="aceptarMiembro(miembro.miembro.id, miembro.area.id)" href="#" class="btn btn-success btn-circle">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
                                                     <path
                                                         d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                                                 </svg>
                                             </a>
-                                            <a href="#" class="btn btn-danger btn-circle">
+                                            <a @click="rechazarMiembro(miembro.miembro.id, miembro.area.id)" href="#" class="btn btn-danger btn-circle">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                                                     <path
@@ -222,9 +222,9 @@
                                         <td class="sorting_1">{{miembro.apellido}}</td>
                                         <td class="sorting_1">{{miembro.tipoDoc}}</td>
                                         <td class="sorting_1">{{miembro.numDoc}}</td>
-                                        <td class="sorting_1">{{imprimirAreas(miembro.areas)}}</td>
+                                        <td class="sorting_1">{{miembro.areaNombre}}</td>
                                         <td>
-                                            <a @click="desvincularMiembro(miembro.id)" href="#" class="btn btn-danger btn-circle">
+                                            <a @click="desvincularMiembro(miembro.miembroId, miembro.areaId)" href="#" class="btn btn-danger btn-circle">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                                                     <path
@@ -283,22 +283,26 @@
             miembros: []
         },
         methods: {
-          desvincularMiembro(miembroId) {
-
+          desvincularMiembro(miembroId, areaId) {
+              fetch('http://localhost:8080/miembro/desvincular/'+areaId+'/'+miembroId);
+              alert("Miembro desvinculado de la organizacion");
           },
-         imprimirAreas(areas){
-              let respuesta = '';
-              areas.forEach(area => respuesta += area.nombre + '\n');
-              return respuesta;
-         }
+            aceptarMiembro(miembroId, areaId){
+              fetch('http://localhost:8080/organizaciones/aceptarMiembro/'+areaId+'/'+miembroId);
+              alert('Miembro aceptado');
+            },
+            rechazarMiembro(miembroId, areaId){
+                fetch('http://localhost:8080/organizaciones/rechazarMiembro/'+areaId+'/'+miembroId);
+                alert('Miembro rechazado');
+            }
         },
         created() {
-            fetch('http://localhost:8080/organizaciones/1/miembrosEnEspera')
+            fetch('http://localhost:8080/organizaciones/'+ localStorage.getItem('id') +'/miembrosEnEspera')
                 .then(response => response.json())
                 .then(miembroObtenido => {
                     this.miembrosPendientes = miembroObtenido
-                }),
-                fetch('http://localhost:8080/organizaciones/1/miembros')
+                });
+                fetch('http://localhost:8080/organizaciones/'+ localStorage.getItem('id') +'/miembros2')
                     .then(response => response.json())
                     .then(data => {
                         this.miembros = data

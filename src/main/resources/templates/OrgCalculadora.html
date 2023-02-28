@@ -121,7 +121,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Tesla</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Salir</span>
                                 
                             </a>
                             <!-- Dropdown - User Information -->
@@ -211,16 +211,6 @@
                 mesFin: null,
                 anioFin: null,
                 huellaTotal: null,
-                huellaPorAreas: [
-                    {
-                        nombre: "direccion",
-                        hc: 50
-                    },
-                    {
-                        nombre: "sistemas",
-                        hc: 150
-                    }
-                ]
             },
             methods:{
                 calcularHuella: function() {
@@ -231,9 +221,9 @@
                     let anioInit= fechainit.substring(0,4);
                     let diaFin = fechafin.substring(8,10);
                     let mesFin= fechafin.substring(5,7);
-                    let anioFin= fechafin.substring(0,3);
+                    let anioFin= fechafin.substring(0,4);
 
-                    fetch('http://localhost:8080/organizaciones/calcularHuella/1/'+diaInit+'/'+mesInit+'/'+anioInit+'/'+diaFin+'/'+mesFin+'/'+anioFin+'/')
+                    fetch('http://localhost:8080/organizaciones/calcularHuella/'+localStorage.getItem('id')+'/'+diaInit+'/'+mesInit+'/'+anioInit+'/'+diaFin+'/'+mesFin+'/'+anioFin+'/')
                         .then(response => response.json())
                         .then(data => this.huellaTotal = data);
                 },

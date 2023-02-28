@@ -1,18 +1,16 @@
 package CalculoHuellaTest;
 
 import BaseDeDatos.BaseDeDatos;
-import org.junit.Assert;
+import heroku.huelladecarbono.service.CalculoDeHuellaService.CalculadoraHCService;
+import heroku.huelladecarbono.service.CalculoDeHuellaService.Calendario;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Optional;
 
-import utn.frba.huelladecarbono.model.ModeloDeNegocio.Miembro;
-import utn.frba.huelladecarbono.model.ModeloDeNegocio.Organizacion;
-import utn.frba.huelladecarbono.model.ModeloDeNegocio.SectorTerritorial;
-import utn.frba.huelladecarbono.service.CalculoDeHuellaService.*;
+import heroku.huelladecarbono.model.ModeloDeNegocio.Miembro;
+import heroku.huelladecarbono.model.ModeloDeNegocio.Organizacion;
+import heroku.huelladecarbono.model.ModeloDeNegocio.SectorTerritorial;
 
 public class CalculoHuellaTest {
     BaseDeDatos BD = BaseDeDatos.getInstance();

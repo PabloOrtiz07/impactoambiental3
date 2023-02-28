@@ -3,20 +3,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
-import utn.frba.huelladecarbono.model.MedioDeTransporte.*;
-import utn.frba.huelladecarbono.model.ModeloDeNegocio.AgenteSectorial;
-import utn.frba.huelladecarbono.model.ModeloDeNegocio.Area;
-import utn.frba.huelladecarbono.model.ModeloDeNegocio.Clasificacion;
-import utn.frba.huelladecarbono.model.ModeloDeNegocio.DatoDeMedicion;
-import utn.frba.huelladecarbono.model.ModeloDeNegocio.Miembro;
-import utn.frba.huelladecarbono.model.ModeloDeNegocio.Organizacion;
-import utn.frba.huelladecarbono.model.ModeloDeNegocio.SectorTerritorial;
-import utn.frba.huelladecarbono.model.ModeloDeNegocio.TipoOrg;
-import utn.frba.huelladecarbono.model.ModeloDeNegocio.Ubicacion;
-import utn.frba.huelladecarbono.model.Movilidad.Recorrido;
-import utn.frba.huelladecarbono.model.Movilidad.Trayecto;
-import utn.frba.huelladecarbono.service.CalculoDeHuellaService.Calendario;
-import utn.frba.huelladecarbono.service.CalculoDeHuellaService.FactoresDeEmision;
+import heroku.huelladecarbono.model.ModeloDeNegocio.AgenteSectorial;
+import heroku.huelladecarbono.model.ModeloDeNegocio.Area;
+import heroku.huelladecarbono.model.ModeloDeNegocio.Clasificacion;
+import heroku.huelladecarbono.model.ModeloDeNegocio.Miembro;
+import heroku.huelladecarbono.model.ModeloDeNegocio.Organizacion;
+import heroku.huelladecarbono.model.ModeloDeNegocio.SectorTerritorial;
+import heroku.huelladecarbono.model.ModeloDeNegocio.TipoOrg;
+import heroku.huelladecarbono.model.ModeloDeNegocio.Ubicacion;
+import heroku.huelladecarbono.model.Movilidad.Recorrido;
+import heroku.huelladecarbono.model.Movilidad.Trayecto;
+import heroku.huelladecarbono.service.CalculoDeHuellaService.Calendario;
+import heroku.huelladecarbono.service.CalculoDeHuellaService.FactoresDeEmision;
 
 @Getter
 public class BaseDeDatos {

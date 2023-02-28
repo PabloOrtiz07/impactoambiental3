@@ -99,7 +99,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Elon Musk</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Salir</span>
                                 
                             </a>
                             <!-- Dropdown - User Information -->
@@ -134,15 +134,17 @@
                                 <div class="modal-body">
                                     <form action="">
                                         <label for="m-organizacion">Organizacion</label>
-                                        <select v-model="organizacionSeleccionado" id="m-organizacion" name="dataTable_length" aria-controls="dataTable"
+                                        <select id="m-organizacion" name="dataTable_length" aria-controls="dataTable"
                                             class="custom-select custom-select-sm form-control form-control-sm form-control-user">
-                                            <option v-for="organizacion in selectOrg" :value="organizacion.nombre"> {{organizacion.nombre}}</option>
+                                            <option selected disabled></option>
+                                            <option @click="cargarOrganizacion(organizacion.id, organizacion.nombre)" v-for="organizacion in organizaciones" > {{organizacion.nombre}}</option>
                                         </select>
                                         <br><br>
                                         <label for="m-recorridos">Recorrido</label>
-                                        <select v-model="recorridoSeleccionado" name="recorridos" id="m-recorridos" aria-controls="dataTable"
+                                        <select name="recorridos" id="m-recorridos" aria-controls="dataTable"
                                             class="custom-select custom-select-sm form-control form-control-sm form-control-user">
-                                            <option v-for="recorrido in selectRecorrido" :value="recorrido.nombre"> {{recorrido.nombre}}</option>
+                                            <option selected disabled></option>
+                                            <option @clicK="cargarRecorrido(recorrido.id)" v-for="recorrido in recorridos" > {{recorrido.nombre}}</option>
                                         </select>
                                         <br><br>
                                         <label for="pesoRecorrido">Peso</label>
@@ -150,10 +152,10 @@
                                             id="pesoRecorrido" placeholder="Ingrese el peso del recorrido">
                                         <br>
                                         <label for="FI">Fecha de inicio</label>
-                                        <input v-model="selectFechaIni" type="text" name="" id="FI" class="form-control form-control-user">
+                                        <input v-model="selectFechaIni" type="date" name="" id="FI" class="form-control form-control-user">
                                         <br>
                                         <label for="FF">Fecha de fin</label>
-                                        <input v-model="selectFechaIni" type="text" name="" id="FF" class="form-control form-control-user">
+                                        <input v-model="selectFechaFin" type="date" name="" id="FF" class="form-control form-control-user">
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -185,12 +187,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="recorrido in recorridos" v-if="recorrido.estaActivo" class="odd">
+                            <tr v-for="recorrido in recorridosMiembro" class="odd">
                                 <td class="sorting_1">{{recorrido.organizacion.nombre}}</td>
                                 <td>{{recorrido.peso}}</td>
-                                <td>{{recorrido.fechaDeInicio}}</td>
-                                <td>{{recorrido.fechaDeFin}}</td>
-                                <td>{{recorrido.trayectos.length}}</td>
+                                <td>{{recorrido.fechaI}}</td>
+                                <td>{{recorrido.fechaF}}</td>
+                                <td>{{recorrido.cantTrayectos}}</td>
                                 <td>
                                     <a @click="borrarRecorrido(recorrido.id)" class="btn btn-danger btn-circle">
                                         <i class="fas fa-trash"></i>
@@ -247,109 +249,77 @@
         let app = new Vue({
             el: "#wrapper",
             data:{
-                recorridos: [{
-                    organizacion:{
-                        nombre: "orgaPrueba"
-                    },
-                    peso: 5,
-                    fechaDeInicio: "22/02/22",
-                    fechaDeFin: "23/03/23",
-                    estaActivo: true,
-                    trayectos: [1,2,3,4,5]
-                },
-                    {
-                        organizacion:{
-                            nombre: "orgaPrueba"
-                        },
-                        peso: 5,
-                        fechaDeInicio: "22/02/22",
-                        fechaDeFin: "23/03/23",
-                        estaActivo: true,
-                        trayectos: [1,2,3,4,5]
-                    }],
+                organizacion: [],
+                recorridosMiembro: [],
+                recorridos: [],
                 selectOrg: null,
-                selectRecorrido: [
-                    {
-                        nombre: "nombre1"
-                    },
-                    {nombre: "nombre2"}
-                ],
+                selectOrgNombre: null,
+                selectRecorrido: null,
                 recorridoSeleccionado: null,
                 organizacionSeleccionado: null,
-                selectPeso: 5,
-                selectFechaIni: "02/02/2022",
-                selectFechaFin: "02/03/2023",
+                selectPeso: null,
+                selectFechaIni: null,
+                selectFechaFin: null,
                 organizaciones: null,
                 areas: null,
                 areasyorg: null
             },
             methods: {
-                cargarAreas: function() {
-                    fetch('http://localhost:8080/areas/byOrg/1')
+                cargarOrganizacion: function(orgID, orgNombre){
+                    this.selectOrg = orgID;
+                    this.selectOrgNombre = this.orgNombre;
+                    fetch('http://localhost:8080/organizaciones/recorridos/'+orgID, {
+                        method: 'GET',
+                    })
                         .then(response => response.json())
-                        .then(data => {
-                            this.opcionesAreas = data.areas;
-                        })
+                        .then(data => this.recorridos = data);
+                },
+                cargarRecorrido: function(recID){
+                    this.selectRecorrido= recID;
                 },
                 agregarRecorrido: function() {
                     let nuevoRecorrido = {
-                        organizacion:{
-                            nombre: "nombreOrga",
-                            idOrg: this.selectOrg
-                        },
+                        organizacionNombre: this.selectOrgNombre,
+                        idOrg: this.selectOrg,
                         idRecorrido: this.selectRecorrido,
                         peso: this.selectPeso,
                         fechaDeInicio: this.selectFechaIni,
                         fechaDeFin: this.selectFechaFin,
-                        estaActivo: true,
-                        trayectos: [1,2,3]
+                        estaActivo: true
                     };
-                    this.recorridos.push(nuevoRecorrido);
-                    //cambiar a recorrido para miembro
-                    /*let response = fetch('http://localhost:8080/recorrido/crear', {
+                    let response = fetch('http://localhost:8080/recorrido/agregarMiembro/'+localStorage.getItem("id"), {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json;charset=utf-8'
                         },
                         body: JSON.stringify(nuevoRecorrido)
-                    });*/
-                    alert("Recorrido Creado.");
+                    });
+                    alert("Recorrido Cargado.");
                 },
                 //cambiar a recorrido para miembro
                 borrarRecorrido: function(idRecorrido) {
-                    fetch('http://localhost:8080/recorrido/eliminar/'+idRecorrido, {
+                    fetch('http://localhost:8080/miembro/eliminarRecorrido/'+localStorage.getItem("id")+'/'+idRecorrido, {
                         method: 'GET',
                     });
-                    this.recorridos.shift();
                     alert("Recorrido Eliminado.");
                 }
             },
             created () {
-               /* fetch('http://localhost:8080/miembro/1/recorridos')
+                fetch('http://localhost:8080/recorrido/miembro/1')
                     .then(response => response.json())
                     .then(data => {
-                        this.recorridos = data;
-                    });*/
-                /*('http://localhost:8080/miembro/1')
-                    .then(response => response.json())
-                    .then(data => {
-                        this.areas = data.areas;
-                        this.areas.forEach(
-                            area => {fetch('http://localhost:8080/organizaciones/' + area.organizacionId)
-                                .then(response => response.json())
-                                .then(data => {
-                                    this.areasyorg.push({
-                                        area: {nombre: area.nombre,
-                                            id: area.id},
-                                        nombreOrga: data.nombre
-                                    })
-                                })})
-                    });*/
+                        this.recorridosMiembro = data;
+                    });
                 fetch("http://localhost:8080/organizaciones/")
                     .then(response => response.json())
                     .then(data => {
-                        this.selectOrg = data;
-                    })
+                        this.organizaciones = data;
+                    });
+                fetch('http://localhost:8080/recorridos/1')
+                    .then(response => response.json())
+                    .then(recorridos => {
+                        this.recorridos = recorridos
+                    });
             }
         })
 

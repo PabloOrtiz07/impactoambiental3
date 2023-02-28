@@ -121,7 +121,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Tesla</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Salir</span>
                                 
                             </a>
                             <!-- Dropdown - User Information -->
@@ -248,11 +248,9 @@
             },
             methods:{
                 agregarArea: function() {
-                    console.log("hola");
                     let nuevosDatosArea = {
                         nombre: this.nombreNuevo,
-                        //aca iría el id de la organizacion logueada
-                        id: "1",
+                        id: localStorage.getItem('id'),
                     };
                     let response = fetch('http://localhost:8080/area/crear', {
                         method: 'POST',
@@ -271,7 +269,7 @@
                 }
             },
             created() {
-                fetch('http://localhost:8080/areas/1')
+                fetch('http://localhost:8080/areas/'+localStorage.getItem('id'))
                     .then(response => response.json())
                     .then(data => {
                         this.areas = data

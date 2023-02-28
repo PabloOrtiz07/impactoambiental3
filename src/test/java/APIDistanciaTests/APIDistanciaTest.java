@@ -1,16 +1,13 @@
 package APIDistanciaTests;
 
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import utn.frba.huelladecarbono.service.CalculoDeDistanciaService.APIDistanciaService;
+import heroku.huelladecarbono.service.CalculoDeDistanciaService.APIDistanciaService;
 import BaseDeDatos.BaseDeDatos;
-import utn.frba.huelladecarbono.model.ModeloDeNegocio.Ubicacion;
+import heroku.huelladecarbono.model.ModeloDeNegocio.Ubicacion;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import utn.frba.huelladecarbono.service.CalculoDeHuellaService.FactoresDeEmision;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {APIDistanciaService.class})

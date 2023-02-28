@@ -1,7 +1,7 @@
 package NotificacionTest;
 
 import org.junit.jupiter.api.Assertions;
-import utn.frba.huelladecarbono.service.NotificacionService.EnviarMail;
+import heroku.huelladecarbono.service.NotificacionService.EnviarMail;
 import org.junit.Test;
 
 public class EnvioDeMailTest {

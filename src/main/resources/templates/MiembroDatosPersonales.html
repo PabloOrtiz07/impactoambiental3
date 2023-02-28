@@ -98,7 +98,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Elon Musk</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Salir</span>
                                 
                             </a>
                             <!-- Dropdown - User Information -->
@@ -150,8 +150,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mail">Mail</label>
-                                    <input type="email" class="form-control form-control-user" id="mail"
+                                    <label for="email">Mail</label>
+                                    <input type="email" class="form-control form-control-user" id="email"
                                         placeholder="Mail" v-model="email">
                                 </div>
                                 <div class="form-group">
@@ -226,6 +226,9 @@
                 console.log(this.tipoDoc);
             },
             actualizarDatos: function() {
+                console.log(this.numDoc)
+                console.log(this.telefono)
+                console.log(this.email)
                 let nuevosDatosMiembro = {
                     nombre: this.nombre,
                     apellido: this.apellido,
@@ -234,7 +237,7 @@
                     email: this.email,
                     telefono: this.telefono
                 }
-                fetch('http://localhost:8080/miembro/editar/1', {
+                fetch('http://localhost:8080/miembro/editar/'+localStorage.getItem('id'), {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'
@@ -245,7 +248,7 @@
             }
         },
         created () {
-            fetch('http://localhost:8080/miembro/1')
+            fetch('http://localhost:8080/miembro/'+localStorage.getItem('id'))
                 .then(response => response.json())
                 .then(data => {
                     this.nombre = data.nombre;

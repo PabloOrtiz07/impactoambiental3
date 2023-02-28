@@ -1,6 +1,5 @@
 package BasedeDatosCrud.Service;
 
-import org.apache.cxf.service.model.EndpointInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -8,9 +7,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
-import utn.frba.huelladecarbono.model.ModeloDeNegocio.Organizacion;
-import utn.frba.huelladecarbono.repository.OrganizacionRepository;
-import utn.frba.huelladecarbono.service.OrganizacionService;
+import heroku.huelladecarbono.model.ModeloDeNegocio.Organizacion;
+import heroku.huelladecarbono.repository.OrganizacionRepository;
+import heroku.huelladecarbono.service.OrganizacionService;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
